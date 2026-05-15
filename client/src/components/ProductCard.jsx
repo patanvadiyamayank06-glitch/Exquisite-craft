@@ -66,7 +66,7 @@ const ProductCard = ({ product, onAddedToCart }) => {
 
   return (
     <article className="group flex flex-col bg-white">
-      <div className="relative overflow-hidden bg-brown-pale aspect-[3/4]">
+      <div className="relative overflow-hidden bg-brown-pale aspect-[2/3]">
         <img src={product.image} alt={product.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
         <button onClick={handleWishlist} disabled={isWishlisting}

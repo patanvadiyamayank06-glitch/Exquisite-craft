@@ -47,23 +47,25 @@ const Banner = () => {
 
   return (
     <section className="relative w-full overflow-hidden" style={{ backgroundColor: slide.bg, minHeight: 420, transition: "background-color 0.6s ease" }}>
-      {/* Decorative shapes */}
-      <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
-        {[
-          { c: "#8B5E3C", w: 56, h: 108, t: "6%",  l: "55%", r: -14 },
-          { c: "#c49a6c", w: 52, h: 102, t: "10%", l: "65%", r: 10  },
-          { c: "#3b1f0e", w: 54, h: 106, t: "4%",  l: "75%", r: -6  },
-          { c: "#d4a574", w: 50, h: 98,  t: "52%", l: "60%", r: 18  },
-          { c: "#8B5E3C", w: 52, h: 104, t: "56%", l: "72%", r: -16 },
-          { c: "#c49a6c", w: 56, h: 110, t: "44%", l: "84%", r: 8   },
-          { c: "#3b1f0e", w: 50, h: 100, t: "14%", l: "88%", r: -10 },
-        ].map((s, i) => (
-          <div key={i} className="absolute opacity-80"
-            style={{ top: s.t, left: s.l, width: s.w, height: s.h, transform: `rotate(${s.r}deg)` }}>
-            <div style={{ width: "100%", height: "100%", backgroundColor: s.c, borderRadius: 16, boxShadow: "0 4px 16px rgba(0,0,0,0.15)" }} />
-          </div>
-        ))}
+  {/* Decorative phone case images */}
+  <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+    {[
+      { src: "/tanjiro-case.jpg",          t: "4%",  l: "52%", r: -14, w: 72  },
+      { src: "/marble-case.webp",          t: "8%",  l: "63%", r: 10,  w: 68  },
+      { src: "/flower-case.webp",          t: "3%",  l: "74%", r: -6,  w: 70  },
+      { src: "/boho-case.webp",            t: "50%", l: "57%", r: 18,  w: 65  },
+      { src: "/camera-case.jpeg",          t: "54%", l: "70%", r: -16, w: 68  },
+      { src: "/youre-special-case.jpeg",   t: "44%", l: "83%", r: 8,   w: 72  },
+      { src: "/iphone-case2.jpeg",         t: "12%", l: "87%", r: -10, w: 66  },
+    ].map((s, i) => (
+      <div key={i} className="absolute"
+        style={{ top: s.t, left: s.l, width: s.w, transform: `rotate(${s.r}deg)` }}>
+        <img src={s.src} alt=""
+          className="w-full object-contain drop-shadow-lg"
+          style={{ borderRadius: 0, aspectRatio: "9/16", mixBlendMode: "multiply" }} />
       </div>
+    ))}
+  </div>
 
       {/* Arrows */}
       {["‹","›"].map((arrow, i) => (

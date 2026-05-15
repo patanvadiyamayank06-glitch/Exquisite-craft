@@ -1,10 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Banner from "../components/Banner";
 import ProductCard from "../components/ProductCard";
 import { API_BASE_URL } from "../lib/config";
-
-const models = ["All", "iPhone", "Samsung", "OnePlus", "Other"];
 
 const features = [
   { icon: "🎨", label: "100% Customizable", desc: "Your design, your way" },
@@ -14,7 +12,6 @@ const features = [
 ];
 
 const HomePage = ({ onCartUpdated }) => {
-  const [selectedModel, setSelectedModel] = useState("All");
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,11 +22,6 @@ const HomePage = ({ onCartUpdated }) => {
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
-
-  const filtered = useMemo(() => {
-    if (selectedModel === "All") return productList;
-    return productList.filter(p => p.model === selectedModel);
-  }, [selectedModel, productList]);
 
   return (
     <main className="bg-cream">
@@ -73,31 +65,16 @@ const HomePage = ({ onCartUpdated }) => {
 
       {/* Products */}
       <div className="mx-auto max-w-7xl px-4 md:px-8 pb-16" id="products">
-        {/* Header + filters */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-          <div>
-            <h2 className="section-title text-2xl md:text-3xl">Our Cases</h2>
-            <p className="text-sm text-brown-light mt-1">{filtered.length} products</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {models.map(m => (
-              <button key={m} onClick={() => setSelectedModel(m)}
-                className="px-4 py-1.5 text-xs font-semibold rounded-full transition-all border"
-                style={selectedModel === m
-                  ? { backgroundColor: "#8B5E3C", color: "#fff", borderColor: "#8B5E3C" }
-                  : { backgroundColor: "transparent", color: "#8B5E3C", borderColor: "#8B5E3C" }
-                }>
-                {m}
-              </button>
-            ))}
-          </div>
+        <div className="mb-8">
+          <h2 className="section-title text-2xl md:text-3xl">Our Cases</h2>
+          <p className="text-sm text-brown-light mt-1">{productList.length} products</p>
         </div>
 
         {loading ? (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {Array.from({ length: 8 }).map((_, i) => (
               <div key={i} className="bg-white animate-pulse">
-                <div className="aspect-[3/4] bg-brown-pale/50" />
+                <div className="aspect-[2/3] bg-brown-pale/50" />
                 <div className="p-3 space-y-2">
                   <div className="h-3 bg-brown-pale/50 rounded w-3/4" />
                   <div className="h-3 bg-brown-pale/50 rounded w-1/2" />
@@ -105,13 +82,13 @@ const HomePage = ({ onCartUpdated }) => {
               </div>
             ))}
           </div>
-        ) : filtered.length === 0 ? (
+        ) : productList.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-brown-light text-lg">No products found.</p>
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-            {filtered.map(product => (
+            {productList.map(product => (
               <ProductCard key={product.id} product={product} onAddedToCart={onCartUpdated} />
             ))}
           </div>
