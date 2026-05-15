@@ -8,8 +8,10 @@ import AdminPage from "./pages/AdminPage";
 import WishlistPage from "./pages/WishlistPage";
 import CustomDesignPage from "./pages/CustomDesignPage";
 import Logo from "./components/Logo";
+import ProductDetailPage from "./pages/ProductDetailPage";
 import ReviewPage from "./pages/ReviewPage";
 import { authStore } from "./lib/auth";
+import { API_BASE_URL } from "./lib/config";
 
 const CartIcon = () => (
   <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -158,6 +160,7 @@ const App = () => {
         <Route path="/admin" element={<AdminPage currentUser={currentUser} />} />
         <Route path="/wishlist" element={<WishlistPage />} />
         <Route path="/custom-design" element={<CustomDesignPage onCartUpdated={fetchCartCount} />} />
+        <Route path="/product/:id" element={<ProductDetailPage onCartUpdated={fetchCartCount} />} />
         <Route path="/review" element={<ReviewPage />} />
       </Routes>
 

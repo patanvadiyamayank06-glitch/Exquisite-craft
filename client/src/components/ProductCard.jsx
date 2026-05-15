@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { authStore } from "../lib/auth";
 import { API_BASE_URL } from "../lib/config";
 
@@ -66,23 +67,27 @@ const ProductCard = ({ product, onAddedToCart }) => {
 
   return (
     <article className="group flex flex-col bg-white">
-      <div className="relative overflow-hidden bg-brown-pale aspect-[2/3]">
-        <img src={product.image} alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-        <button onClick={handleWishlist} disabled={isWishlisting}
-          className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-card transition-all"
-          aria-label="Wishlist">
-          <HeartIcon filled={isWishlisted} />
-        </button>
-        {product.featured && (
-          <span className="absolute top-2.5 left-2.5 bg-brown text-white text-xs font-semibold px-2 py-0.5 rounded-full">
-            Featured
-          </span>
-        )}
-      </div>
+      <Link to={`/product/${product.id}`} className="block">
+        <div className="relative overflow-hidden bg-brown-pale aspect-[2/3]">
+          <img src={product.image} alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <button onClick={e => { e.preventDefault(); handleWishlist(); }} disabled={isWishlisting}
+            className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-card transition-all"
+            aria-label="Wishlist">
+            <HeartIcon filled={isWishlisted} />
+          </button>
+          {product.featured && (
+            <span className="absolute top-2.5 left-2.5 bg-brown text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+              Featured
+            </span>
+          )}
+        </div>
+      </Link>
 
       <div className="flex flex-col flex-1 pt-3 pb-4 px-1">
-        <h3 className="text-sm font-medium text-ink leading-snug line-clamp-2">{product.name}</h3>
+        <Link to={`/product/${product.id}`}>
+          <h3 className="text-sm font-medium text-ink leading-snug line-clamp-2 hover:text-brown transition-colors">{product.name}</h3>
+        </Link>
         {avgRating > 0 && (
           <p className="mt-1 text-xs text-brown-light flex items-center gap-1">
             <StarIcon /> {avgRating.toFixed(1)} <span className="text-gray-300">·</span> {numReviews} reviews
